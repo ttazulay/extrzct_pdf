@@ -1,7 +1,6 @@
 import pdfplumber
 from typing import List, Dict
 from datetime import date
-# import fitz
 
 class TextualWord:
     x0: float
@@ -86,26 +85,6 @@ class ExtraTextualWord(TextualWord):
 PagesToExtraWords = Dict[int, List[ExtraTextualWord]]
 
 
-# def pdf_to_extra_dict(pdf_path: str) -> PagesToExtraWords:
-#     pages_to_extra_words = {}
-#
-#     pdf_document = fitz.open(pdf_path)
-#
-#     for page_number in range(pdf_document.page_count):
-#         page = pdf_document[page_number]
-#         extra_words = []
-#
-#         for word in page.get_text("words"):
-#             x0, y0, x1, y1, fontname, size = word[:6]
-#             text = word[4]  # The word itself
-#             extra_word = ExtraTextualWord(x0, x1, text, fontname, size)
-#             extra_words.append(extra_word)
-#
-#         pages_to_extra_words[page_number + 1] = extra_words  # Page numbers start from 1
-#
-#     pdf_document.close()
-#     return pages_to_extra_words
-
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -126,16 +105,6 @@ if __name__ == '__main__':
         result = pdf_to_dict(pdf)
         chart = populate_chart(result)
         print_chart(chart)
-    #3
-    # pdf_path = "/home/tehila/Downloads/chart3.pdf"
-    #
-    # with pdfplumber.open(pdf_path) as pdf:
-    #     result = pdf_to_extra_dict(pdf)
-    #
-    #     for page_number, extra_words in result.items():
-    #         print(f"Page {page_number}:")
-    #         for extra_word in extra_words:
-    #             print(
-    #                 f"  Text: {extra_word.text}, Font: {extra_word.fontname}, Size: {extra_word.size}, Is Bold: {extra_word.is_bold}")
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
