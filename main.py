@@ -2,11 +2,8 @@ import pdfplumber
 from typing import List, Dict
 from datetime import date
 
-class TextualWord:
-    x0: float
-    x1: float
-    text: str
 
+class TextualWord:
     def __init__(self, x0: float, x1: float, text: str):
         self.x0 = x0
         self.x1 = x1
@@ -17,11 +14,6 @@ PagesToWords = Dict[int, List[TextualWord]]
 
 
 class Chart:
-    name: str
-    dob: date
-    has_valid_ekg: bool
-    age: int
-
     def __init__(self, name: str, dob: date, has_valid_ekg: bool):
         self.name = name
         self.dob = dob
@@ -72,6 +64,7 @@ def print_chart(chart: Chart):
     for key, value in vars(chart).items():
         print(f"{key}: {value}")
 
+
 class ExtraTextualWord(TextualWord):
     def __init__(self, x0: float, x1: float, text: str, fontname: str, size: float):
         super().__init__(x0, x1, text)
@@ -80,15 +73,14 @@ class ExtraTextualWord(TextualWord):
 
     @property
     def is_bold(self) -> bool:
-      return 'Bold' in self.fontname
+        return 'Bold' in self.fontname
+
 
 PagesToExtraWords = Dict[int, List[ExtraTextualWord]]
 
-
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    #1
+    # 1
     pdf_path = "/home/tehila/Downloads/chart_example.pdf"
 
     with pdfplumber.open(pdf_path) as pdf:
@@ -98,13 +90,12 @@ if __name__ == '__main__':
             for word in words:
                 print(f"  {word.text}, x0: {word.x0}, x1: {word.x1}")
 
-    #2
+    # 2
     pdf_path = "/home/tehila/Downloads/chart3.pdf"
 
     with pdfplumber.open(pdf_path) as pdf:
         result = pdf_to_dict(pdf)
         chart = populate_chart(result)
         print_chart(chart)
-
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
